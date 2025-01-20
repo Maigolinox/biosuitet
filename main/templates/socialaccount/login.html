@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+
+<!-- Favicons -->
+<link rel="shortcut icon" type="image/png" href="https://lh3.googleusercontent.com/u/1/drive-viewer/AITFw-wYexAsXl-4yjFoxmu6YPMfPHLoT0qg3mJ6it_NypdNJ5socTjC-SYYwxM0g85su3lUr_pxs3U76of5VcAfcB0iKzHypw=w3840-h1972"/>
+
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+{% if process == "connect" %}
+<br><br><br><br>
+<h1>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h1>
+
+<p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from {{ provider }}.{% endblocktrans %}</p>
+{% else %}
+<h1>{% blocktrans with provider.name as provider %}Sign In Via Terr {{ provider }}{% endblocktrans %}</h1>
+
+<p style="text-align: center;"><strong> {% blocktrans with provider.name as provider %} <br><br><br><br><br>  You are about to sign in using a third party account from Bio-Suite-T {{ provider }}.{% endblocktrans %} </strong></p>
+{% endif %}
+<div class="container" style="align-items: center;">
+  <div class="row" style="align-items: center;">
+    <div class="col" style="align-items: center;">
+      <form method="post" style="align-items: center; display: flex; justify-content: center;">
+        {% csrf_token %}
+        <button type="submit" style="text-align: center;  box-shadow: 0px 10px 14px -7px #276873;        background-color:#599bb3;
+        border-radius:8px;
+        cursor:pointer;
+        color:#ffffff;
+        font-size:20px;
+        font-weight:bold;
+        padding:13px 32px;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #3d768a;">{% trans "Continue" %}</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLAST Tool.</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm" style="text-align: center;">
+                <br><br><br><br>
+                <h1> Blast Tool.</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <form method="post" action="#" class="php-email-form" onsubmit="openLoader()">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="name"> Write the sequence or GI number: </label>
+                            <input type="text" name="sequenceGI" class="form-control" id="sequenceGI" value="{{resultsNCBI.0}}" required>
+                        </div> <br>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="typeB" id="blastnO" value="blastn" checked="checked">
+                            <label class="form-check-label" for="blastnO">
+                                Blast-N: Nucleotide - Nucleotide.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="typeB" id="blastpO" value="blastp">
+                            <label class="form-check-label" for="blastpO">
+                                Blast-P: Protein - Protein.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="typeB" id="tblastnO" value="tblastn">
+                            <label class="form-check-label" for="tblastnO">
+                                T-Blast-N: Protein - Nucleotide.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="typeB" id="blastx" value="blastx">
+                            <label class="form-check-label" for="blastx">
+                                Blast-X: Nucleotide - Protein.
+                            </label>
+                        </div>
+                    <div class="text-center"><br><button type="submit" style="box-shadow: 0px 0px 0px 2px #00ADB5;background:linear-gradient(to bottom, #00ADB5 5%, #00ADB5 100%);background-color:#00ADB5;                      border-radius:10px;                      border:1px solid #00ADB5;                      display:inline-block;                      cursor:pointer;                      color:#ffffff;
+                          font-family:Arial;                      font-size:19px;                      padding:12px 37px;                      text-decoration:none; text-shadow:0px 1px 0px #00ADB5;" onclick="openLoader()">Get results</button></div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="row"> <br><br>
+            {% autoescape off %}
+
+            {{ resultsNCBI.2 }}
+
+            {% endautoescape %}
+        </div>
+        
+        <div id="preloader" style="display: none;"></div>
+      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        
+    </div>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+  <script>
+
+    function openLoader() {
+        const sequenceGI=document.getElementById("sequenceGI");
+        console.log(sequenceGI.value)
+        if(!sequenceGI.value){
+            console.log("Fill the form.");
+        } else{
+            document.getElementById("preloader").style.display = "block";
+        }
+        
+      }
+      let typeB= "{{resultsNCBI.1}}";
+      let radios=document.getElementsByName("typeB");
+      for (let i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].value == typeB) {
+            radios[i].checked = true;
+            // only one radio can be logically checked, don't check the rest
+            break;
+        }
+    
+    }
+    
+</script>
+
+</body>
+</html>
+
+{% endblock %}

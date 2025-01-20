@@ -1,0 +1,51 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algal Proteome Database</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <br><br><br><br><br>
+                <h1 style="text-align: center;">Algal Proteome Database.</h1>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Specie</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Sequence</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for elemento in lista %}
+                    <tr>
+                        <td>{{elemento.specie}}</td>
+                        <td>{{elemento.ID}}</td>
+                        <td>{{elemento.description}}</td>
+                        <td style="max-width: 600px; overflow: scroll;">{{elemento.seq|truncatewords:"100"}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+              </table>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcription Tool</title>
+</head>
+<body>
+    <br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h1 style="text-align: center;">Transcription Tool</h1>
+                <p> <strong>Important: </strong>Only Coding DNA. </p>
+            </div>
+        </div>
+
+        <form method="post" action="#" class="php-email-form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="name"> Write the DNA sequence: </label>
+                    <input type="text" name="DNAsequence" class="form-control" id="DNA" value="{{resultsTranscriptionFunction.0}}" required>
+                </div> <br>
+            <div class="text-center"><br><button type="submit" style="box-shadow: 0px 0px 0px 2px #00ADB5;background:linear-gradient(to bottom, #00ADB5 5%, #00ADB5 100%);background-color:#00ADB5;                      border-radius:10px;                      border:1px solid #00ADB5;                      display:inline-block;                      cursor:pointer;                      color:#ffffff;
+                  font-family:Arial;                      font-size:19px;                      padding:12px 37px;                      text-decoration:none; text-shadow:0px 1px 0px #00ADB5;">Transcript DNA sequence</button></div>
+        </div>
+        </form>
+        <div class="row">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">DNA Template Strand</th>
+                    <th scope="col">Single stranded mRNA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td> 5' to 3': <br> {{resultsTranscriptionFunction.1}} <br> 3' to 5': <br> {{resultsTranscriptionFunction.3}} </td>
+                    <td>{{resultsTranscriptionFunction.2}}</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends "base.html" %} {% load socialaccount %} {% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <br /><br /><br /><br />
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm" style="text-align: left">
+          <h1>Dashboard</h1>
+        </div>
+        <div class="col-sm" style="text-align: right">
+           Welcome, {{ user.socialaccount_set.all.0.extra_data.name }}.<!--, your UID
+          is: <span name="uid"> {{ user.socialaccount_set.all.0.uid }} </span> -->
+        </div>
+      </div>
+      <!--SECOND ROW BUTTONS-->
+      <br />
+    </div>
+    <div class="container-fluid">
+        <div class="row row d-flex justify-content-center" style="margin-top: 10px;">
+            <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px; ">
+                <a href="{% url 'biotratool' %}" style="display: block;"><img src="{% static '/img/chemical_icon.png' %}" alt="Create a New Project" width="200px" height="200px" style="margin-top: 10px;"></a>
+                <span>
+                  <a href="{% url 'biotratool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+                    <strong>Analyze and get Properties of a DNA</strong>
+                  </a>
+                </span>
+            </div>
+
+
+
+            <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+                <a href="{% url 'bioprotool' %}" style="display: block;"><img src="{% static 'img/chemical_icon_PROT.png' '%}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+              <span>
+                <a href="{% url 'bioprotool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+                  <strong>Analyze and get properties of Proteome</strong>
+                </a>
+              </span>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+              <a href="{% url 'transcriptionTool' %}" style="display: block;"><img src="{% static 'img/Transcription.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+            <span>
+              <a href="{% url 'transcriptionTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+                <strong>Transcription (Nucleotide to mRNA)</strong>
+              </a>
+            </span>
+          </div>
+          
+
+
+
+            <!-- <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+                <a href="#" style="display: block;"><img src="https://img.freepik.com/free-icon/add-user_318-318718.jpg" alt="Register a member"  width="200px" height="200px" style="margin-top: 10px;"></a>
+              <span><a href="#" style="display: block; margin: 10px; color: #37517E; font-size: 1.2em;"> <br> <strong>Register a new member</strong></a></span>
+            </div> -->
+
+
+
+            <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+                <a href="{% url 'backTranscriptionTool' %}" style="display: block;"><img src="{% static 'img/BackTranscription.png' %}" alt="Templates" width="200px" height="200px" style="margin-top: 10px;"></a>
+              <span>
+                <a href="{% url 'backTranscriptionTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+                  <strong> Back Transcription (mRNA to DNA)</strong>
+                </a></span>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+              <a href="{% url 'translationTool' %}" style="display: block;"><img src="{% static 'img/translationTool.png' %}" alt="Templates" width="200px" height="200px" style="margin-top: 10px;"></a>
+            <span>
+              <a href="{% url 'translationTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+                <strong> Translation (mRNA/DNA to Proteins)</strong>
+              </a></span>
+          </div>
+          <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+            <a href="{% url 'sequenceAlignerTool' %}" style="display: block;"><img src="{% static 'img/Sequence_Aligner.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+          <span>
+            <a href="{% url 'sequenceAlignerTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+              <strong>Pairwise Sequence Aligner</strong>
+            </a>
+          </span>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+          <a href="{% url 'ncbiBlastTool' %}" style="display: block;"><img src="{% static 'img/ncbiWWW.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+        <span>
+          <a href="{% url 'ncbiBlastTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+            <strong>Blast Tool</strong>
+          </a>
+        </span>
+      </div>
+      
+    <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+      <a href="{% url 'pdbViewerTool' %}" style="display: block;"><img src="{% static 'img/pdbIconView.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+    <span>
+      <a href="{% url 'pdbViewerTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+        <strong>PDB viewer</strong>
+      </a>
+    </span>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+    <a href="{% url 'pdbAnalysisTool' %}" style="display: block;"><img src="{% static 'img/pdbIconAnalyze.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+  <span>
+    <a href="{% url 'pdbAnalysisTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+      <strong>PDB analysis</strong>
+    </a>
+  </span>
+</div>
+  <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+    <a href="{% url 'phyloTreesTool' %}" style="display: block;"><img src="{% static 'img/phyloTr.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+  <span>
+    <a href="{% url 'phyloTreesTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+      <strong>Phylogenetic Trees</strong>
+    </a>
+  </span>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+  <a href="{% url 'motifsTool' %}" style="display: block;"><img src="{% static 'img/mtifs.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+<span>
+  <a href="{% url 'motifsTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+    <strong>MOTIFS</strong>
+  </a>
+</span>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+  <a href="{% url 'regExTool' %}" style="display: block;"><img src="{% static 'img/fungi.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+<span>
+  <a href="{% url 'regExTool' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+    <strong>FungiRegEx Module</strong>
+  </a>
+</span>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+  <a href="{% url 'fungiProtDB' %}" style="display: block;"><img src="{% static 'img/fungiProtDB.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+<span>
+  <a href="{% url 'fungiProtDB' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+    <strong>FUNGI Proteome Database</strong>
+  </a>
+</span>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+  <a href="{% url 'fungiGenoDB' %}" style="display: block;"><img src="{% static 'img/fungiGenDB.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+<span>
+  <a href="{% url 'fungiGenoDB' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+    <strong>FUNGI Genome Database</strong>
+  </a>
+</span>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+  <a href="{% url 'algalProtDB' %}" style="display: block;"><img src="{% static 'img/algalProtDB.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+<span>
+  <a href="{% url 'algalProtDB' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+    <strong>ALGAL Proteome Database</strong>
+  </a>
+</span>
+</div>
+<div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%; margin-top: 10px; margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">
+  <a href="{% url 'algalGenoDB' %}" style="display: block;"><img src="{% static 'img/algalGenDB.png' %}" alt="List Projects" width="200px" height="200px" style="margin-top: 10px;"></a>
+<span>
+  <a href="{% url 'algalGenoDB' %}" style="display: block; margin: 10px; color: #222831; font-size: 1.2em;"><br>
+    <strong>Algal Genome Database</strong>
+  </a>
+</span>
+</div>
+<!--
+  <div class="col-xs-6 col-sm-4 col-lg-3" style="text-align: center; display: inline-block; background-color: #f7f7f7; border-radius: 25% 10%;">
+  <a href="#">Another option</a>
+  </div>
+-->
+          </div>
+    </div>
+  </body>
+</html>
+
+{% endblock %}

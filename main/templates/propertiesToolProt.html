@@ -1,0 +1,346 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-Tra-Tool Proteins (Nucleotides) </title>
+    <!--GRAFICA-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <br><br><br><br><br>
+    <form method="post" action="#" class="php-email-form">
+        {% csrf_token %}
+        <div class="container">
+          <div class="col-sm">
+              <div class="row">
+                  <div class="form-group col-md-12">
+                    <label for="name"> Write the PROTEOME sequence: </label>
+                    <input type="text" name="sequence" class="form-control" id="DNA" value="{{sequence}}" required>
+                    <label for="name"> Charge at pH: </label>
+                    <input type="number" step="0.01" name="pHValue" class="form-control" id="DNA" value="{{pHValue}}"  placeholder=0 required>
+                  </div> <br>
+                  <div class="text-center"><br><button type="submit" style="box-shadow: 0px 0px 0px 2px #00ADB5;
+                      background:linear-gradient(to bottom, #00ADB5 5%, #00ADB5 100%);
+                      background-color:#00ADB5;                      border-radius:10px;                      border:1px solid #00ADB5;                      display:inline-block;                      cursor:pointer;                      color:#ffffff;
+                      font-family:Arial;                      font-size:19px;                      padding:12px 37px;                      text-decoration:none; text-shadow:0px 1px 0px #00ADB5;">Get PROTEOME Properties</button></div>
+          </div>
+          <div class="col-sm">
+            <div class="row">
+                <h2>Results of PROTEOME analysis.</h2>
+                <br>
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Parameter</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Lenght of the Proteome:</td>
+                        <td>{{ resultsProt.15 }}</td>
+                    
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Molecular weight:</td>
+                        <td>{{ resultsProt.3 }}</td>
+                    
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Aromaticity:</td>
+                        <td>{{ resultsProt.4 }}</td>
+                    
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>Inestability index:</td>
+                        <td>{{ resultsProt.5 }}</td>
+                    
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        <td>Iso-electric point:</td>
+                        <td>{{ resultsProt.6 }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">6</th>
+                        <td>Secondary Structure Fraction:</td>
+                        <td>{{ resultsProt.7 }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">7</th>
+                        <td>Molar Extinction Coefficient <strong>(&Epsilon;)</strong>:</td>
+                        <td>{{ resultsProt.8 }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">8</th>
+                        <td>&Epsilon; Reduced cysteines:</td>
+                        <td>{{ resultsProt.9 }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">9</th>
+                        <td>Disulfide bridges:</td>
+                        <td>{{ resultsProt.10 }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">10</th>
+                        <td>Gravy:</td>
+                        <td>{{ resultsProt.11 }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">11</th>
+                        <td>Charge at pH:</td>
+                        <td>{{ resultsProt.14 }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                
+            </div>
+            
+          <div class="row">
+            <br>
+            <h5>Flexibility data.</h5>
+            <div class="col-sm" style="display: flex;align-items: center;">
+                <label for="FValue"> Flexibility:</label>
+                <textarea id="FValue" name="results" rows="20" disabled readonly  style="width: 100%;"></textarea>
+            </div>
+          </div>
+          <br>
+
+          <script>
+            document.getElementById("FValue").value="{{ resultsProt.13 }}";
+          </script>
+
+          
+          <div class="row">
+            <table class="table" style="text-align: center;">
+                <thead>
+                  <tr>
+                    <th scope="col">Aminoacid Letter</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Percentage</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="col">A</th>
+                    <td > {{ resultsProt.1.A }} </td>
+                    <td > {% widthratio resultsProt.2.A 1 100 %} %, Dec.: {{ resultsProt.2.A }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">C</th>
+                    <td >{{ resultsProt.1.C }}</td>
+                    <td > {% widthratio resultsProt.2.C 1 100 %} %, Dec.: {{ resultsProt.2.C }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">D</th>
+                    <td >{{ resultsProt.1.D }}</td>
+                    <td > {% widthratio resultsProt.2.D 1 100 %} %, Dec.: {{ resultsProt.2.D }} </td>
+
+                  </tr>
+                  <tr>
+                    <th scope="col">E</th>
+                    <td >{{ resultsProt.1.E }}</td>
+                    <td > {% widthratio resultsProt.2.E 1 100 %} %, Dec.: {{ resultsProt.2.E }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">F</th>
+                    <td >{{ resultsProt.1.F }}</td>
+                    <td > {% widthratio resultsProt.2.F 1 100 %} %, Dec.: {{ resultsProt.2.F }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">G</th>
+                    <td >{{ resultsProt.1.G }}</td>
+                    <td > {% widthratio resultsProt.2.G 1 100 %} %, Dec.: {{ resultsProt.2.G }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">H</th>
+                    <td >{{ resultsProt.1.H }}</td>
+                    <td > {% widthratio resultsProt.2.H 1 100 %} %, Dec.: {{ resultsProt.2.H }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">I</th>
+                    <td >{{ resultsProt.1.I }}</td>
+                    <td > {% widthratio resultsProt.2.I 1 100 %} %, Dec.: {{ resultsProt.2.I }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">K</th>
+                    <td >{{ resultsProt.1.K }}</td>
+                    <td > {% widthratio resultsProt.2.K 1 100 %} %, Dec.: {{ resultsProt.2.K }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">L</th>
+                    <td >{{ resultsProt.1.L }}</td>
+                    <td > {% widthratio resultsProt.2.L 1 100 %} %, Dec.: {{ resultsProt.2.L }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">M</th>
+                    <td >{{ resultsProt.1.M }}</td>
+                    <td > {% widthratio resultsProt.2.M 1 100 %} %, Dec.: {{ resultsProt.2.M }} </td>
+
+                  </tr>
+                  <tr>
+                    <th scope="col">N</th>
+                    <td >{{ resultsProt.1.N }}</td>
+                    <td > {% widthratio resultsProt.2.N 1 100 %} %, Dec.: {{ resultsProt.2.N }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">P</th>
+                    <td >{{ resultsProt.1.P }}</td>
+                    <td > {% widthratio resultsProt.2.P 1 100 %} %, Dec.: {{ resultsProt.2.P }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">Q</th>
+                    <td >{{ resultsProt.1.Q }}</td>
+                    <td > {% widthratio resultsProt.2.Q 1 100 %} %, Dec.: {{ resultsProt.2.Q }} </td>
+
+                  </tr>
+                  <tr>
+                    <th scope="col">R</th>
+                    <td >{{ resultsProt.1.R }}</td>
+                    <td > {% widthratio resultsProt.2.R 1 100 %} %, Dec.: {{ resultsProt.2.R }} </td>
+                  </tr>
+                  <tr>
+                    <th scope="col">S</th>
+                    <td >{{ resultsProt.1.S }}</td>
+                    <td > {% widthratio resultsProt.2.S 1 100 %} %, Dec.: {{ resultsProt.2.S }} </td>
+
+                  </tr>
+                  <tr>
+                    <th scope="col">T</th>
+                    <td >{{ resultsProt.1.T }}</td>
+                    <td > {% widthratio resultsProt.2.T 1 100 %} %, Dec.: {{ resultsProt.2.T }} </td>
+
+                  </tr>
+                  <tr>
+                    <th scope="col">V</th>
+                    <td >{{ resultsProt.1.V }}</td>
+                    <td > {% widthratio resultsProt.2.V 1 100 %} %, Dec.: {{ resultsProt.2.V }} </td>
+
+                  </tr>
+                  <tr>
+                    <th scope="col">W</th>
+                    <td >{{ resultsProt.1.W }}</td>
+                    <td > {% widthratio resultsProt.2.W 1 100 %} %, Dec.: {{ resultsProt.2.W }} </td>
+
+                  </tr>
+                  <tr>
+                    <th scope="col">Y</th>
+                    <td >{{ resultsProt.1.Y }}</td>
+                    <td > {% widthratio resultsProt.2.Y 1 100 %} %, Dec.: {{ resultsProt.2.Y }} </td>
+
+                  </tr>
+                </tbody>
+                </table>
+          </div>
+          
+            
+            
+            
+            
+          </div>
+        </div>
+      </form>
+      <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="chart-container" >
+                    <canvas id="chartProperties"></canvas>
+            </div>
+          </div>
+          
+            <div class="col-sm">
+                <h2>Kyte-doolittle Hydrophobicity</h2>
+                <br>
+                <p> X axis: # of residue. &nbsp; Y axis: Hydrophobicity. </p>
+    
+                <img src="data:image/png;base64, {{ resultsProt.16 }}" alt="somealt" onerror="this.onerror=null; this.remove();"/>
+            </div>
+          
+      </div>
+      
+    </div>
+      <script>
+        
+        var ctx = document.getElementById('chartProperties').getContext('2d');
+        var values= "{{ values }}";
+        
+        values=values.replaceAll("[","")
+        values=values.replaceAll("]","")
+        values=values.replaceAll("'","")
+        values=values.replaceAll(" ","")
+
+        values=values.split(",")
+        
+        var labelss= "{{ keys | safe }}"
+        labelss=labelss.replaceAll("[","")
+        labelss=labelss.replaceAll("]","")
+        labelss=labelss.replaceAll("'","")
+        labelss=labelss.replaceAll(" ","")
+
+        
+
+        labelss=labelss.split(",")
+
+        console.log(values)
+        console.log(labelss)
+        
+        ctx.canvas.width = 200;
+        ctx.canvas.height = 200;
+        var myChart = new Chart(ctx, 
+        {type: 'doughnut',
+        data: {
+          datasets: [
+            {
+              data: values,
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(0, 128, 0, 0.2)',
+                'rgba(228, 208, 10, 0.2)',
+                'rgba(14, 102, 235, 0.2)',
+                'rgba(25, 19, 152, 0.2)',
+                'rgba(0, 128, 100, 0.2)',
+                'rgba(228, 255, 10, 0.2)',
+                'rgba(65, 15, 235, 0.2)',
+                'rgba(255, 199, 132, 0.2)',
+                'rgba(80, 18, 0, 0.2)',
+                'rgba(28, 208, 10, 0.2)',
+                'rgba(14, 165, 135, 0.2)',
+                'rgba(15, 95, 182, 0.2)',
+                'rgba(0, 250, 0, 0.2)',
+                'rgba(228, 108, 10, 0.2)',
+                'rgba(54, 62, 235, 0.2)',
+                'rgba(55, 199, 132, 0.2)',
+                'rgba(100, 28, 0, 0.2)',
+                'rgba(22, 80, 100, 0.2)',
+                ],
+              },
+            ],
+            labels: labelss,
+          },
+          options: {
+            plugins: {
+              datalabels: {
+                formatter: (value) => {
+                  return value + '%';
+                },
+              },
+            },
+          },
+        });
+      </script>
+
+</body>
+</html>
+
+{% endblock %}

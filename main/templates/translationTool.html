@@ -1,0 +1,431 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Tool</title>
+  </head>
+  <body onload="writeText()">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <br /><br /><br /><br />
+          <h1 style="text-align: center">Translation Tool.</h1>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <form method="post" action="#" class="php-email-form">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="form-group col-md-12">
+                        <label for="name"> Write the mRNA or DNA sequence: </label>
+                        <input type="text" name="sequence"class="form-control"id="DNA"value="{{resultsTranslationTool.0}}"required/>
+                      </div>
+                      
+                        
+                    </div>
+                      
+                      <div class="row">
+                        <p>
+                          Select the codon table that you want to use to translate the
+                          sequence:
+                        </p>
+                        <div class="col-sm">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="StandardCode" value="1" checked="checked">
+                                <label class="form-check-label" for="StandardCode">
+                                    Standard Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="vertebrateMitochondrialCode" value="2">
+                                <label class="form-check-label" for="vertebrateMitochondrialCode">
+                                    Vertebrate Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="yeastMitochondrialCode" value="3">
+                                <label class="form-check-label" for="yeastMitochondrialCode">
+                                    Yeast Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="complexTable" value="4">
+                                <label class="form-check-label" for="complexTable">
+                                    The Mold, Protozoan, and Coelenterate Mitochondrial Code and the Mycoplasma/Spiroplasma Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="invertebrateMitochondrialCode" value="5">
+                                <label class="form-check-label" for="invertebrateMitochondrialCode">
+                                    The Invertebrate Mitochondrial Code.
+                                </label>
+                            </div>
+    
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="cdhnCode" value="6">
+                                <label class="form-check-label" for="cdhnCode">
+                                    The Ciliate, Dasycladacean and Hexamita Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="efmCode" value="9">
+                                <label class="form-check-label" for="efmCode">
+                                    The Echinoderm and Flatworm Mitochondrial Code
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="euplotidCode" value="10">
+                                <label class="form-check-label" for="euplotidCode">
+                                    The Euplotid Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="barchplCode" value="11">
+                                <label class="form-check-label" for="barchplCode">
+                                    The Bacterial, Archaeal and Plant Plastid Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="ayeastCode" value="12">
+                                <label class="form-check-label" for="ayeastCode">
+                                    The Alternative Yeast Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="asciMiCode" value="13">
+                                <label class="form-check-label" for="asciMiCode">
+                                    The Ascidian Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="aflwMCode" value="14">
+                                <label class="form-check-label" for="aflwMCode">
+                                    The Alternative Flatworm Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="bleNuCode" value="15">
+                                <label class="form-check-label" for="bleNuCode">
+                                    Blepharisma Nuclear Code.
+                                </label>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="clorophyceanCode" value="16">
+                                <label class="form-check-label" for="clorophyceanCode">
+                                    Chlorophycean Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="treMiCode" value="21">
+                                <label class="form-check-label" for="treMiCode">
+                                    Trematode Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="sceObliCode" value="22">
+                                <label class="form-check-label" for="sceObliCode">
+                                    Scenedesmus obliquus Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="thraMiCode" value="23">
+                                <label class="form-check-label" for="thraMiCode">
+                                    Thraustochytrium Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="rhaMiCode" value="24">
+                                <label class="form-check-label" for="rhaMiCode">
+                                    Rhabdopleuridae Mitochondrial Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="caDivCode" value="25">
+                                <label class="form-check-label" for="caDivCode">
+                                    Candidate Division SR1 and Gracilibacteria Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="pachTaCode" value="26">
+                                <label class="form-check-label" for="pachTaCode">
+                                    Pachysolen tannophilus Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="karyCode" value="27">
+                                <label class="form-check-label" for="karyCode">
+                                    Karyorelict Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="condNuCode" value="28">
+                                <label class="form-check-label" for="condNuCode">
+                                    Condylostoma Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="mesoCode" value="29">
+                                <label class="form-check-label" for="mesoCode">
+                                    Mesodinium Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="perNuCode" value="30">
+                                <label class="form-check-label" for="perNuCode">
+                                    Peritrich Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="blastNuCode" value="31">
+                                <label class="form-check-label" for="blastNuCode">
+                                    Blastocrithidia Nuclear Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="cephMitCode" value="33">
+                                <label class="form-check-label" for="cephMitCode">
+                                    Cephalodiscidae Mitochondrial UAA-Tyr Code.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="codonTable" id="bruteForce" value="100">
+                                <label class="form-check-label" for="bruteForce">
+                                    <strong>Try with all (Brute Force).</strong>
+                                </label>
+                            </div>
+
+                        </div>
+                        
+
+
+
+                        
+                      </div>
+                      <div class="text-center">
+                        <br /><button
+                          type="submit"
+                          style="
+                            box-shadow: 0px 0px 0px 2px #00adb5;
+                            background: linear-gradient(
+                              to bottom,
+                              #00adb5 5%,
+                              #00adb5 100%
+                            );
+                            background-color: #00adb5;
+                            border-radius: 10px;
+                            border: 1px solid #00adb5;
+                            display: inline-block;
+                            cursor: pointer;
+                            color: #ffffff;
+                            font-family: Arial;
+                            font-size: 19px;
+                            padding: 12px 37px;
+                            text-decoration: none;
+                            text-shadow: 0px 1px 0px #00adb5;
+                          "
+                        >
+                          Translate sequence
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+        </div>
+
+<div class="container">
+
+
+        <div class="row">
+            <div class="col-sm"><h2>Results of translation</h2></div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <table class="table">
+                    
+                    <tbody>
+                      <tr>
+                        <th scope="row">Type of sequence</th>
+                        <td>{{resultsTranslationTool.1}}</td>
+                        
+                      </tr>
+                      <tr>
+                        <th scope="row">Translation result:</th>
+                        <td id="result" style="max-width: 600px; overflow: scroll;">
+                            {% if codonTable == 100 %} 
+                            <br>
+                            Standard Code: {{ resultsTranslationTool.2.0 |linebreaks }}
+                            The Vertebrate Mitochondrial Code: {{ resultsTranslationTool.2.1|linebreaks  }} 
+                            The Yeast Mitochondrial Code: {{ resultsTranslationTool.2.2|linebreaks  }}
+                            The Mold, Protozoan, and Coelenterate Mitochondrial Code and the Mycoplasma/Spiroplasma Code: {{ resultsTranslationTool.2.3 |linebreaks }}
+                            The Invertebrate Mitochondrial Code: {{ resultsTranslationTool.2.4 |linebreaks }}
+                            The Ciliate, Dasycladacean and Hexamita Nuclear Code: {{ resultsTranslationTool.2.5 |linebreaks  }}
+                            The Echinoderm and Flatworm Mitochondrial Code: {{ resultsTranslationTool.2.6 |linebreaks }}
+                            The Euplotid Nuclear Code: {{ resultsTranslationTool.2.7 |linebreaks  }}
+                            The Bacterial, Archaeal and Plant Plastid Code: {{ resultsTranslationTool.2.8 |linebreaks }}
+                            The Alternative Yeast Nuclear Code: {{ resultsTranslationTool.2.9 |linebreaks }}
+                            The Ascidian Mitochondrial Code: {{ resultsTranslationTool.2.10 |linebreaks }}
+                            The Alternative Flatworm Mitochondrial Code: {{ resultsTranslationTool.2.11 |linebreaks  }}
+                            Blepharisma Nuclear Code: {{ resultsTranslationTool.2.12 |linebreaks }}
+                            Chlorophycean Mitochondrial Code: {{ resultsTranslationTool.2.13 |linebreaks }}
+                            Trematode Mitochondrial Code: {{ resultsTranslationTool.2.14 |linebreaks }}
+                            Scenedesmus obliquus Mitochondrial Code: {{ resultsTranslationTool.2.15 |linebreaks }}
+                            Thraustochytrium Mitochondrial Code: {{ resultsTranslationTool.2.16 |linebreaks }}
+                            Rhabdopleuridae Mitochondrial Code: {{ resultsTranslationTool.2.17 |linebreaks }}
+                            Candidate Division SR1 and Gracilibacteria Code: {{ resultsTranslationTool.2.18|linebreaks  }}
+                            Pachysolen tannophilus Nuclear Code: {{ resultsTranslationTool.2.19 |linebreaks }}
+                            Karyorelict Nuclear Code: {{ resultsTranslationTool.2.20 |linebreaks }}
+                            Condylostoma Nuclear Code: {{ resultsTranslationTool.2.21 |linebreaks }}
+                            Mesodinium Nuclear Code: {{ resultsTranslationTool.2.22 |linebreaks }}
+                            Peritrich Nuclear Code: {{ resultsTranslationTool.2.23 |linebreaks }}
+                            Blastocrithidia Nuclear Code: {{ resultsTranslationTool.2.24 |linebreaks  }}
+                            Cephalodiscidae Mitochondrial UAA-Tyr Code: {{ resultsTranslationTool.2.25 |linebreaks  }}
+
+                            {% else %}
+
+                            {{resultsTranslationTool.2}}
+
+                            {% endif %}
+                        </td>
+                        
+                      </tr>
+                      <tr>
+                        <th scope="row">Used Codon Table:</th>
+                        <td id="result">
+                            {{codonTable}}-
+                            {% if codonTable == 1 %}
+                            Standard Code.
+                            {% endif %}
+                            {% if codonTable == 2 %}
+                            The Vertebrate Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 3 %}
+                            The Yeast Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 4 %}
+                            The Mold, Protozoan, and Coelenterate Mitochondrial Code and the Mycoplasma/Spiroplasma Code.
+                            {% endif %}
+                            {% if codonTable == 6 %}
+                            The Ciliate, Dasycladacean and Hexamita Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 9 %}
+                            The Echinoderm and Flatworm Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 10 %}
+                            The Euplotid Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 11 %}
+                            The Bacterial, Archaeal and Plant Plastid Code.
+                            {% endif %}
+                            {% if codonTable == 12 %}
+                            The Alternative Yeast Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 13 %}
+                            The Ascidian Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 14 %}
+                            The Alternative Flatworm Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 15 %}
+                            Blepharisma Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 16 %}
+                            Chlorophycean Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 21 %}
+                            Trematode Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 22 %}
+                            Scenedesmus obliquus Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 23 %}
+                            Thraustochytrium Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 24 %}
+                            Rhabdopleuridae Mitochondrial Code.
+                            {% endif %}
+                            {% if codonTable == 25 %}
+                            Candidate Division SR1 and Gracilibacteria Code.
+                            {% endif %}
+                            {% if codonTable == 26 %}
+                            Pachysolen tannophilus Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 27 %}
+                            Karyorelict Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 28 %}
+                            Condylostoma Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 29 %}
+                            Mesodinium Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 30 %}
+                            Peritrich Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 31 %}
+                            Blastocrithidia Nuclear Code.
+                            {% endif %}
+                            {% if codonTable == 33 %}
+                            Cephalodiscidae Mitochondrial UAA-Tyr Code.
+                            {% endif %}
+                            {% if codonTable == 100 %}
+                            All Codon Tables.
+                            {% endif %}
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div> </div>
+      
+    
+  </body>
+  <script>
+    let codonTable= "{{codonTable}}";
+    function writeText() {
+    let text = document.getElementById("result").textContent;
+    //console.log(text)
+
+
+    
+    for(var i=0; i<1; i++) {
+        var regex = new RegExp('/*', 'g');
+        text = text.replaceAll('\*', `<span style="color:red">*</span>`);
+        //console.log(text)
+    }
+    if(codonTable!=100){
+        document.getElementById("result").innerHTML = text;
+    }
+    
+
+}
+//let codonTable= "{{codonTable}}";
+console.log(codonTable);
+let radios=document.getElementsByName("codonTable");
+for (let i = 0, length = radios.length; i < length; i++) {
+  if (radios[i].value == codonTable) {
+    radios[i].checked = true;
+
+    // only one radio can be logically checked, don't check the rest
+    break;
+  }
+}
+        
+  </script>
+
+
+</html>
+{% endblock %}

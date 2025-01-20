@@ -1,0 +1,233 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDB Analysis.</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm"> <br><br><br><br><br>
+                <h1 style="text-align: center;">PDB Properties Tool</h1>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <span></span>
+          </div>
+          <div class="col-sm">
+            
+              <form  method="post" enctype="multipart/form-data" onsubmit="openLoader()">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <div class="text-center">
+                    <button class="h-100 d-flex justify-content-center align-items-center" type="submit" onclick="openLoader()" style="box-shadow: 0px 0px 0px 2px #00ADB5;
+                  background:linear-gradient(to bottom, #00ADB5 5%, #00ADB5 100%);
+                  background-color:#00ADB5;                      border-radius:10px;                      border:1px solid #00ADB5;                      display:inline-block;                      cursor:pointer;                      color:#ffffff;
+                  font-family:Arial;                      font-size:19px;                      padding:12px 37px;                      text-decoration:none; text-shadow:0px 1px 0px #00ADB5;">Analyze PDB File</button>
+                  </div>
+              </form>
+            </div>
+            <div class="col-sm">
+              <span></span>
+            </div>
+          </div>
+          
+        </div>
+        <div class="container">
+          <div class="row">
+            <div id="hiden">
+              <div class="row">
+                  <table class="table">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1-Structure name: </th>
+                          <td>{{results.0}} </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2-Depositation Date: </th>
+                          <td>{{results.1}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3-Release Date: </th>
+                          <td>{{results.2}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4-Structure Resolution(Å): </th>
+                          <td>{{results.3}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">5-Structure Keywords: </th>
+                          <td>{{results.4}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">6-Structure Method: </th>
+                          <td>{{results.5}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">7-Structure Reference: </th>
+                          <td>{{results.6}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">8-Journal Reference: </th>
+                          <td>{{results.7}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">9-Author: </th>
+                          <td>{{results.8}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">10-Compound: </th>
+                          <td>{{results.9}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">11-Source: </th>
+                          <td>{{results.10}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">12-Has missing residues?: </th>
+                          <td>{{results.11}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">13-Missing residues: </th>
+                          <td>{{results.12}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">14-Journal: </th>
+                          <td>{{results.13}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+              <div class="row">
+                  <div class="col-sm"> <br>
+                      <h1 style="text-align: center;">PDB Analysis Tool</h1>
+                  </div>
+              </div>
+              <div class="row">
+                  <table class="table">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1-Glycosilation: </th>
+                          <td>{{results.14}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2-Model list: </th>
+                          <td>{{results.15}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3-Chain list: </th>
+                          <td>{{results.16}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4-Residues list: </th>
+                          <td>{{results.17}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">5-Atom name and coords: </th>
+                          <td>{{results.18}}</td>
+                        </tr>
+                        <!-- <tr>
+                          <th scope="row">6-Alpha Beta Folds: </th>
+                          <td>{{results.14}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4 - Hidrophobicity: </th>
+                          <td>{{results.14}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">5 - H bridges: </th>
+                          <td>{{results.14}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">6-Na bridges: </th>
+                          <td>{{results.14}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">7-Methanol tolerance probability: </th>
+                          <td>{{results.14}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">8-Beta Factor: </th>
+                          <td>{{results.14}}</td>
+                        </tr> -->
+                      </tbody>
+                    </table>
+                    <br><br><br>
+              </div>
+              <div class="row">
+                <h1>B-Factor, Element & Atom Distribution Plots</h1>
+                <div class="col-sm">
+                  <h3>Element Symbol Distribution</h3>
+                  <img src="data:image/png;base64, {{ results.22 }}" alt="somealt" onerror="this.onerror=null; this.remove();"/>
+                </div>
+                <div class="col-sm">
+                  <h3>Beta-Factor Plot</h3>
+                  <img src="data:image/png;base64, {{ results.21 }}" alt="somealt" onerror="this.onerror=null; this.remove();"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <h3>Atom Distribution Plot</h3>
+                  <img src="data:image/png;base64, {{ results.23 }}" alt="somealt" onerror="this.onerror=null; this.remove();"/>
+                </div>
+              </div>
+              
+              
+      
+              <div class="row">
+                <br><br>
+                <div class="col-sm">
+                  <h1 style="text-align: center;">Atoms Information</h1>
+                  <tt>
+                    <pre>{{results.19}}</pre>
+                  </tt>
+                </div>
+              </div>
+              <div class="row">
+                <br><br>
+                <div class="col-sm">
+                  <h1 style="text-align: center;">Hetero Atom Information</h1>
+                  <tt>
+                    <pre>{{results.20}}</pre>
+                  </tt>
+                </div>
+              </div>
+      
+          
+          </div>
+        </div>
+        </div>
+        </div>
+<script>
+  let show="{{ results.0 }}"
+  
+  if(show ==""){
+    document.getElementById('hiden').hidden=true
+  }
+</script>
+    
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,398 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Aligner Tool</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm" >
+                <br><br><br><br><h1 style="text-align: center;">Sequence Aligner Tool</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <form method="post" action="#" class="php-email-form">
+            {% csrf_token %}
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label for="sequence1"> Write the first sequence: </label>
+                <input type="text" name="sequence1" class="form-control" id="seq1" value="{{resultsSequenceAligner.0}}"required/>
+              </div>
+              <div class="form-group col-md-12">
+                <label for="sequence2"> Write the second sequence: </label>
+                <input type="text" name="sequence2" class="form-control" id="seq2" value="{{resultsSequenceAligner.1}}"required/>
+              </div>
+                
+            </div>
+              
+              <div class="row">
+                <div class="col-sm">
+                    <p> <br>
+                        Select the mode of alignment:
+                      </p>
+                </div>
+                <div class="col-sm">
+                    <p> <br>
+                        Select the penalization matrix:  <br>
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="mode" id="StandardCode" value="global" checked="checked">
+                            <label class="form-check-label" for="StandardCode">
+                                Global Alignment.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="mode" id="vertebrateMitochondrialCode" value="local">
+                            <label class="form-check-label" for="vertebrateMitochondrialCode">
+                                Local Alignment.
+                            </label>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="sequence1"> Match Score: </label>
+                            <input type="number" step="0.00001" name="mscore" class="form-control" id="mscore" value="{{resultsSequenceAligner.7}}"/>
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Mismatch Score: </label>
+                            <input type="number" step="0.00001" name="mismscore" class="form-control" id="mismscore" value="{{resultsSequenceAligner.10}}"/>
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Gap Score: </label>
+                            <input type="number" step="0.00001" name="gapScore" class="form-control" id="gapScore" value="{{resultsSequenceAligner.11}}"/>
+                          </div>
+                          <!-- <div class="form-group col-md-12">
+                            <label for="sequence1"> Target internal Open Gap Score: </label>
+                            <input type="number" step="0.00001" name="tiogs" class="form-control" id="tiogs" value="{{resultsSequenceAligner.11}}"/>
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Target internal Extend Gap Score: </label>
+                            <input type="number" step="0.00001" name="tiegs" class="form-control" id="tiegs" value="{{resultsSequenceAligner.12}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Target left Open Gap Score: </label>
+                            <input type="number" step="0.00001" name="tlogs" class="form-control" id="tlogs" value="{{resultsSequenceAligner.13}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Target left Extend Gap Score: </label>
+                            <input type="number" step="0.00001" name="tlegs" class="form-control" id="tlegs" value="{{resultsSequenceAligner.14}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Target right Open Gap Score: </label>
+                            <input type="number" step="0.00001" name="trogs" class="form-control" id="trogs" value="{{resultsSequenceAligner.15}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Target right Extend Gap Score: </label>
+                            <input type="number" step="0.00001" name="tregs" class="form-control" id="tregs" value="{{resultsSequenceAligner.16}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Query internal open gap Score: </label>
+                            <input type="number" step="0.00001" name="qiogs" class="form-control" id="qiogs" value="{{resultsSequenceAligner.17}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Query internal extend Gap Score: </label>
+                            <input type="number" step="0.00001" name="qiegs" class="form-control" id="qiegs" value="{{resultsSequenceAligner.18}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Query left open Gap Score: </label>
+                            <input type="number" step="0.00001" name="qlogs" class="form-control" id="qlogs" value="{{resultsSequenceAligner.19}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Query left extend Gap Score: </label>
+                            <input type="number" step="0.00001" name="qlegs" class="form-control" id="qlegs" value="{{resultsSequenceAligner.20}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Query right open Gap Score: </label>
+                            <input type="number" step="0.00001" name="qrogs" class="form-control" id="qrogs" value="{{resultsSequenceAligner.21}}" />
+                          </div>
+                          <div class="form-group col-md-12">
+                            <label for="sequence1"> Query right extend Gap Score: </label>
+                            <input type="number" step="0.00001" name="qregs" class="form-control" id="qregs" value="{{resultsSequenceAligner.22}}" />
+                          </div> -->
+
+    
+                    </div>
+                    <div class="col-sm">
+                        
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="JONES" value="JONES">
+                                <label class="form-check-label" for="JONES">
+                                    JONES.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="LEVIN" value="LEVIN">
+                                <label class="form-check-label" for="LEVIN">
+                                    LEVIN.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="MCLACHLAN" value="MCLACHLAN">
+                                <label class="form-check-label" for="MCLACHLAN">
+                                    MCLACHLAN.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="MDM78" value="MDM78">
+                                <label class="form-check-label" for="MDM78">
+                                    MDM78.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="MEGABLAST" value="MEGABLAST">
+                                <label class="form-check-label" for="MEGABLAST">
+                                    MEGABLAST.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="NUC.4.4" value="NUC.4.4">
+                                <label class="form-check-label" for="NUC.4.4">
+                                    NUC.4.4.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="PAM250" value="PAM250">
+                                <label class="form-check-label" for="PAM250">
+                                    PAM250.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="PAM30" value="PAM30">
+                                <label class="form-check-label" for="PAM30">
+                                    PAM30.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="PAM70" value="PAM70">
+                                <label class="form-check-label" for="PAM70">
+                                    PAM70.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="RAO" value="RAO">
+                                <label class="form-check-label" for="RAO">
+                                    RAO.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="RISLER" value="RISLER">
+                                <label class="form-check-label" for="RISLER">
+                                    RISLER.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="SCHNEIDER" value="SCHNEIDER">
+                                <label class="form-check-label" for="SCHNEIDER">
+                                    SCHNEIDER.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="STR" value="STR">
+                                <label class="form-check-label" for="STR">
+                                    STR.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="subsMat" id="TRANS" value="TRANS">
+                                <label class="form-check-label" for="TRANS">
+                                    TRANS.
+                                </label>
+                            </div>
+                        
+                    
+                </div>
+                <div class="col-sm">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="BENNER22" value="BENNER22">
+                            <label class="form-check-label" for="BENNER22">
+                                BENNER22.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="BENNER6" value="BENNER6">
+                            <label class="form-check-label" for="BENNER6">
+                                BENNER6.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="BLASTN" value="BLASTN">
+                            <label class="form-check-label" for="BLASTN">
+                                BLASTN.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="BLASTP" value="BLASTP">
+                            <label class="form-check-label" for="BLASTP">
+                                BLASTP.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="BLOSUM45" value="BLOSUM45">
+                            <label class="form-check-label" for="BLOSUM45">
+                                BLOSUM45.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="BLOSUM62" value="BLOSUM62">
+                            <label class="form-check-label" for="BLOSUM62">
+                                BLOSUM62.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="BLOSUM80" value="BLOSUM80">
+                            <label class="form-check-label" for="BLOSUM80">
+                                BLOSUM80.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="BLOSUM90" value="BLOSUM90">
+                            <label class="form-check-label" for="BLOSUM90">
+                                BLOSUM90.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="DAYHOFF" value="DAYHOFF">
+                            <label class="form-check-label" for="DAYHOFF">
+                                DAYHOFF.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="FENG" value="FENG">
+                            <label class="form-check-label" for="FENG">
+                                FENG.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="GENETIC" value="GENETIC">
+                            <label class="form-check-label" for="GENETIC">
+                                GENETIC.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="GONNET1992" value="GONNET1992">
+                            <label class="form-check-label" for="GONNET1992">
+                                GONNET1992.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="HOXD70" value="HOXD70">
+                            <label class="form-check-label" for="HOXD70">
+                                HOXD70.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="JOHNSON" value="JOHNSON">
+                            <label class="form-check-label" for="JOHNSON">
+                                JOHNSON.
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="subsMat" id="NONE" value="" checked="checked">
+                            <label class="form-check-label" for="NONE">
+                                NONE.
+                            </label>
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
+                
+                
+
+
+
+                
+              </div>
+              <div class="text-center">
+                <br /><button
+                  type="submit"
+                  style="
+                    box-shadow: 0px 0px 0px 2px #00adb5;
+                    background: linear-gradient(
+                      to bottom,
+                      #00adb5 5%,
+                      #00adb5 100%
+                    );
+                    background-color: #00adb5;
+                    border-radius: 10px;
+                    border: 1px solid #00adb5;
+                    display: inline-block;
+                    cursor: pointer;
+                    color: #ffffff;
+                    font-family: Arial;
+                    font-size: 19px;
+                    padding: 12px 37px;
+                    text-decoration: none;
+                    text-shadow: 0px 1px 0px #00adb5;
+                  "
+                >
+                  Align sequences
+                </button>
+              </div>
+            </div>
+          </form>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm" style="letter-spacing: 0.1em;">
+                <tt>
+                    {% autoescape on %}
+                    <pre id="resultAligner">
+{{resultsSequenceAligner.3 | linebreaksbr}}
+                        </pre>
+                            {% endautoescape %}    
+                        </tt>
+                
+                <br>
+                
+            </div>
+            <div class="col-sm">
+                Parammeters of Aligner:
+                <tt>
+                    {% autoescape on %}
+                <p> {{resultsSequenceAligner.6}} </p>
+                {% endautoescape %}    
+                <tt>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script>
+    let penMatrix="{{resultsSequenceAligner.8}}"
+    let radios=document.getElementsByName("subsMat");
+for (let i = 0, length = radios.length; i < length; i++) {
+  if (radios[i].value == penMatrix) {
+    radios[i].checked = true;
+
+    // only one radio can be logically checked, don't check the rest
+    break;
+  }
+}
+let mode="{{resultsSequenceAligner.9}}"
+    let radiosMode=document.getElementsByName("mode");
+for (let i = 0, length = radiosMode.length; i < length; i++) {
+  if (radiosMode[i].value == penMatrix) {
+    radiosMode[i].checked = true;
+
+    // only one radio can be logically checked, don't check the rest
+    break;
+  }
+}
+
+        
+  </script>
+</script>
+</html>
+
+{% endblock %}

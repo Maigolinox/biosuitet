@@ -1,0 +1,116 @@
+{% load static %}
+{% load socialaccount %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioSuiteT</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    
+        <title>BioSuiteT Home</title>
+        <meta content="" name="description" />
+        <meta content="" name="keywords" />
+    
+        <link
+          rel="shortcut icon"
+          type="image/png"
+          href="{% static 'favicon.ico' %}"
+        />
+    
+        <!-- Google Fonts -->
+        <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet"
+        />
+    
+        <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet" />
+        <link
+          href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+          rel="stylesheet"
+        />
+        <link
+          href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}"
+          rel="stylesheet"
+        />
+        <link
+          href="{% static 'vendor/boxicons/css/boxicons.min.css' %}"
+          rel="stylesheet"
+        />
+        <link
+          href="{% static 'vendor/glightbox/css/glightbox.min.css' %}"
+          rel="stylesheet"
+        />
+        <link
+          href="{% static 'vendor/remixicon/remixicon.css' %}"
+          rel="stylesheet"
+        />
+        <link
+          href="{% static 'vendor/swiper/swiper-bundle.min.css' %}"
+          rel="stylesheet"
+        />
+        <link rel="stylesheet" href="{% static 'style.css' %}" />
+    
+        
+</head>
+<body>
+    <header id="header" class="fixed-top" style="background-color: #222831;" >
+        <div class="container d-flex align-items-center">
+          <h1 class="logo me-auto"><a href="{% url 'homepage' %}">Bio-Suite-T</a></h1>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+  
+          <nav id="navbar" class="navbar">
+            <ul>
+              <li><a class="nav-link scrollto active" href="/">Home</a></li>
+              <li><a class="nav-link scrollto" href="https://victormiguelterronmacias.slite.page/p/hoZqnbr7Lxy-q7/Documentacion-de-Software-Bio-Suite-T" target="_blank" >Documentation (ES)</a></li>
+              <li><a class="nav-link scrollto" href="https://victormiguelterronmacias.slite.page/p/8-TiwF62qmpR1a/Copy-of-Documentacion-de-Software-Bio-Suite-T" target="_blank" >Documentation (EN)</a></li>
+              
+
+              <li class="dropdown"><a href="#"><span>Menu</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                {% if user.is_authenticated %}
+                  <li>  <a href="{% url 'homepage' %}" class="dropdown-item"> <strong> Home (main page) </strong></a></li>
+                  <li><a href="{% url 'dashboard' %}" class="dropdown-item"> <strong>Dashboard</strong> </a></li>
+                  <li><hr class="dropdown-divider"> <strong>  <pre>  Tools</pre></strong> </li>
+                  <li><a href="{% url 'bioprotool' %}" class="dropdown-item">Analyse and get properties of a DNA sequence</a></li>
+                  <li><a href="{% url 'transcriptionTool' %}" class="dropdown-item">Transcription Tool (to mRNA).</a></li>
+                  <li><a href="{% url 'backTranscriptionTool' %}" class="dropdown-item">Back Transcription Tool (to DNA).</a></li>
+                  <li><a href="{% url 'translationTool' %}" class="dropdown-item">Translation Tool (to Proteins)</a></li>
+                  <li><a href="{% url 'sequenceAlignerTool' %}" class="dropdown-item">Sequence Aligner Tool </a></li>
+                  <li><a href="{% url 'ncbiBlastTool' %}" class="dropdown-item">NCBI Blast Tool </a></li>
+                  <li><a href="{% url 'fungiProtDB' %}" class="dropdown-item">Proteome of Fungi Data Base </a></li>
+                  <li><a href="{% url 'fungiGenoDB' %}" class="dropdown-item">Genome of Fungi Data Base </a></li>
+                  <li><a href="{% url 'algalProtDB' %}" class="dropdown-item">Proteome of Algal Data Base </a></li>
+                  <li><a href="{% url 'algalGenoDB' %}" class="dropdown-item">Genome of Algal Data Base </a></li>
+                  <li><a href="{% url 'phyloTreesTool' %}" class="dropdown-item">Phylogenetic Trees Tool </a></li>
+                  <li><a href="{% url 'pdbViewerTool' %}" class="dropdown-item">PDB Viewer</a></li>
+                  <li><a href="{% url 'pdbAnalysisTool' %}" class="dropdown-item">PDB Analysis</a></li>
+                  <li><a href="{% url 'regExTool' %}" class="dropdown-item">Regular Expressions Tool</a></li>
+                  <li><a href="{% url 'motifsTool' %}" class="dropdown-item">MOTIFS Tool</a></li>
+
+
+
+                  <li><hr class="dropdown-divider"><pre> <strong>Exit</strong></pre>  </li>
+                  <li><a href="{% url 'account_logout' %}" class="dropdown-item"> <strong>Log Out</strong></a></li>
+                  {% else %}
+                  
+                  <li><a href="{% url 'account_signup' %}">Register/Login Local Account</a></li>
+                </ul>
+                {% endif %}
+              </li>
+              
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+          <!-- .navbar -->
+        </div>
+      </header>
+      <!-- End Header -->    
+      {% block content %}
+
+      {% endblock %}
+</body>
+</html>

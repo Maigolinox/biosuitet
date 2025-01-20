@@ -1,0 +1,55 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phylogenetic Trees</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <br><br><br><br>
+                <h1 style="text-align: center;">Phylogenetic Trees Generator Tool</h1>
+            </div>
+        </div>
+        <div class="row">
+            <p>To run this module you need a clustal file, then just upload it to the server and the app will create your philogenetic tree.</p>
+        </div>
+        <div class="row">
+            <form  method="post" enctype="multipart/form-data" onsubmit="openLoader()">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" onclick="openLoader()">Analyze File</button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <h2>Distance Calculations.</h2>
+                <pre>
+                    {{ results.1 }}
+                </pre>
+                <br><br>
+                {% autoescape on %}
+                <tt>
+                    {{ results.3 | linebreaksbr }}
+                </tt>
+                {% endautoescape %}
+            </div>
+            <div class="col-sm">
+                <img src="data:image/png;base64, {{ results.4 }}" alt="somealt" onerror="this.onerror=null; this.remove();" />
+            </div>
+        </div>
+        
+        
+    </div>
+    
+</body>
+</html>
+
+{% endblock %}

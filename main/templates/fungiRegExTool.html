@@ -1,0 +1,130 @@
+{% extends "base.html" %} 
+{% load socialaccount %} 
+{% load static %} 
+{% block content %} 
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fungi RegEx Module</title>
+    </head>
+    <body>
+        <form method="post" action="#" class="php-email-form">
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <br><br><br><br><br>
+                        <h1 style="text-align: center;">RegEx Module.</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="row">
+                            <h3>Step 1. Select the DB.</h3>
+                            <h6>Select the DB where you want to find the Regular Expressions.</h6>
+                            <p>IMPORTANT: This function will perform a search in all the available genomes in DB.</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="database" id="database" value="fungiProteome" checked="checked">
+                                <label class="form-check-label" for="database">
+                                    Fungi Proteins.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="database" id="databaseFungiGenome" value="fungiGenome">
+                                <label class="form-check-label" for="databaseFungiGenome">
+                                    Fungi Genome.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="database" id="databaseAlgalGenome" value="algalGenome">
+                                <label class="form-check-label" for="databaseAlgalGenome">
+                                    Algal Genome.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="database" id="databaseAlgalProteome" value="algalProteome">
+                                <label class="form-check-label" for="databaseAlgalProteome">
+                                    Algal Proteins.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+
+                    <div class="col-sm">
+                        <div class="row">
+                            <h3>Step 3. Write the Regular Expression.</h3>
+                            <h6>Write the Regular Expression.</h6>
+                            <input type="text" name="regularExpression" class="form-control" id="regularExpression" value="{{regularExpression}}" required/>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <br/>
+                        <button type="submit" style="box-shadow: 0px 0px 0px 2px #00adb5;background: linear-gradient(to bottom,#00adb5 5%,#00adb5 100%);background-color: #00adb5;border-radius: 10px;border: 1px solid #00adb5;display: inline-block;cursor: pointer;color: #ffffff;font-family: Arial;font-size: 19px;padding: 12px 37px;text-decoration: none;text-shadow: 0px 1px 0px #00adb5;">
+                          Find Regular Expressions.
+                        </button>
+                      </div>
+                </div>
+
+            </div>
+        </form>
+        <div class="container">
+            <p><strong>Max Matches in all the sequences: {{maxMatches}} </strong></p>
+            <div class="col-sm">
+    
+                <div class="row">
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Specie</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Sequence</th>
+                            <th scope="col">Number of Matches</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for elemento in results %}
+                            <tr>
+                                <td>{{elemento.specie}}</td>
+                                <td>{{elemento.ID}}</td>
+                                <td>{{elemento.description}}</td>
+                                <td style="max-width: 600px; overflow: scroll;">{{elemento.seq}}</td>
+                                <td>{{elemento.numMatches}}</td>
+                            </tr>
+                            {% endfor %}
+        
+                        </tbody>
+                      </table>
+                      
+                      
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+        let penMatrix="{{database}}"
+        let radios=document.getElementsByName("database");
+        for (let i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].value == penMatrix) {
+            radios[i].checked = true;
+            // only one radio can be logically checked, don't check the rest
+            break;
+          }
+        }
+        </script>
+    </body>
+</html>
+
+{% endblock %}
